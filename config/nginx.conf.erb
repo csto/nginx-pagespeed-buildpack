@@ -51,14 +51,10 @@ http {
 		# Ensure requests for pagespeed optimized resources go to the pagespeed handler
 		# and no extraneous headers get set.
 		location ~ "\.pagespeed\.([a-z]\.)?[a-z]{2}\.[^.]{10}\.[^.]+" {
-		add_header "" "";
+		  add_header "" "";
 		}
 		location ~ "^/pagespeed_static/" { }
 		location ~ "^/ngx_pagespeed_beacon$" { }
-
-
-    # Needs to exist and be writable by nginx.  Use tmpfs for best performance.
-    pagespeed FileCachePath /root/pagespeed_cache;
 
     # enable CoreFilters
     pagespeed RewriteLevel CoreFilters;
@@ -68,13 +64,13 @@ http {
 
     # pagespeed ImageRecompressionQuality 90;
 
-    pagespeed Statistics on;
-    pagespeed StatisticsLogging on;
-    pagespeed LogDir /var/log/pagespeed;
-    pagespeed AdminPath /pagespeed_admin;
-
-    location ~ ^/pagespeed_admin {
-      allow all;
-    }
+    # pagespeed Statistics on;
+    # pagespeed StatisticsLogging on;
+    # pagespeed LogDir /var/log/pagespeed;
+    # pagespeed AdminPath /pagespeed_admin;
+    #
+    # location ~ ^/pagespeed_admin {
+    #   allow all;
+    # }
 	}
 }
