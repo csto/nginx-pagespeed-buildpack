@@ -55,5 +55,26 @@ http {
 		}
 		location ~ "^/pagespeed_static/" { }
 		location ~ "^/ngx_pagespeed_beacon$" { }
+
+
+    # Needs to exist and be writable by nginx.  Use tmpfs for best performance.
+    pagespeed FileCachePath /root/pagespeed_cache;
+
+    # enable CoreFilters
+    pagespeed RewriteLevel CoreFilters;
+
+    # resize_rendered_image_dimensions
+    pagespeed EnableFilters responsive_images,inline_images,resize_images,rewrite_style_attributes_with_url,rewrite_css,prioritize_critical_css,make_google_analytics_async,inline_google_font_css,local_storage_cache,inline_preview_images,resize_mobile_images,remove_comments,collapse_whitespace,elide_attributes,add_instrumentation,defer_javascript,in_place_optimize_for_browser;
+
+    # pagespeed ImageRecompressionQuality 90;
+
+    pagespeed Statistics on;
+    pagespeed StatisticsLogging on;
+    pagespeed LogDir /var/log/pagespeed;
+    pagespeed AdminPath /pagespeed_admin;
+
+    location ~ ^/pagespeed_admin {
+      allow all;
+    }
 	}
 }
