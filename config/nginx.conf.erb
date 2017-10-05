@@ -46,6 +46,16 @@ http {
 			proxy_pass http://app_server;
 		}
 
+    location ^~ /blog {
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_set_header X-NginX-Proxy true;
+
+      proxy_pass http://104.236.26.219:2368/blog;
+      proxy_redirect off;
+    }
+
 		pagespeed on;
 
 		# Needs to exist and be writable by nginx.  Use tmpfs for best performance.
