@@ -33,6 +33,12 @@ http {
 		server unix:/tmp/nginx.socket fail_timeout=0;
  	}
 
+  server {
+    listen <%= ENV["PORT"] %>;
+    server_name www.witharsenal.com;
+    return 302 https://witharsenal.com$request_uri;
+  }
+
 	server {
 		listen <%= ENV["PORT"] %>;
 		server_name _;
